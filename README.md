@@ -3,5 +3,5 @@
 ## Tech Stack
 
 - Go (Progamming Languange)
-- GRPC Server
+- GRPC
 - Postgres

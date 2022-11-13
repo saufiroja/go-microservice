@@ -34,3 +34,22 @@ func (p *ProductHandler) CreateProduct(ctx context.Context, req *product.CreateP
 		Status: fiber.StatusCreated,
 	}, nil
 }
+
+func (p *ProductHandler) FindOne(ctx context.Context, req *product.FindOneRequest) (*product.FindOneResponse, error) {
+	data, err := p.product.FindOne(req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	result := &product.FindOneData{
+		Id:    data.ID,
+		Name:  data.Name,
+		Price: data.Price,
+		Stock: data.Stock,
+	}
+
+	return &product.FindOneResponse{
+		Data:   result,
+		Status: fiber.StatusOK,
+	}, nil
+}

@@ -16,3 +16,7 @@ func NewProductService(productRepository interfaces.ProductRepository) interface
 func (p *ProductService) CreateProduct(product *entity.Product) error {
 	return p.ProductRepository.CreateProduct(product)
 }
+
+func (p *ProductService) FindOne(id string) (*entity.Product, error) {
+	return p.ProductRepository.FindOne(id)
+}

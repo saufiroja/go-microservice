@@ -22,3 +22,13 @@ func (p *productRepository) CreateProduct(product *entity.Product) error {
 
 	return nil
 }
+
+func (p *productRepository) FindOne(id string) (*entity.Product, error) {
+	var product entity.Product
+	res := p.DB.Model(&product).Where("id = ?", id).First(&product)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return &product, nil
+}

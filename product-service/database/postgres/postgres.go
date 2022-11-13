@@ -20,7 +20,7 @@ func NewPostgres(conf *config.AppConfig) *gorm.DB {
 
 	log.Println("Connected to database")
 
-	db.AutoMigrate(&entity.Product{})
+	db.AutoMigrate(&entity.Product{}, &entity.StockDecreaseLog{})
 
 	return db
 }

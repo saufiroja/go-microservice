@@ -7,6 +7,7 @@ import (
 	"github.com/saufiroja/order-service/config"
 	"github.com/saufiroja/order-service/utils"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 type GrpcServer struct {
@@ -31,7 +32,13 @@ func (rpc *GrpcServer) Start() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 
+	provider := rpc.Provide()
+
 	rpc.grpcServer = grpc.NewServer()
+
+	rpc.defineRoute(provider)
+
+	reflection.Register(rpc.grpcServer)
 
 	log.Println(utils.Color("green") + "----------------------------------------")
 	log.Println(utils.Color("green")+"gRPC server is running on", rpc.host+":"+rpc.port)

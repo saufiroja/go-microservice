@@ -53,3 +53,14 @@ func (p *ProductHandler) FindOne(ctx context.Context, req *product.FindOneReques
 		Status: fiber.StatusOK,
 	}, nil
 }
+
+func (p *ProductHandler) DecreaseStock(ctx context.Context, req *product.DecreaseStockRequest) (*product.DecreaseStockResponse, error) {
+	err := p.product.DecreaseStock(req.Id, req.OrderId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &product.DecreaseStockResponse{
+		Status: fiber.StatusOK,
+	}, nil
+}

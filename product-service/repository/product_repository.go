@@ -32,3 +32,32 @@ func (p *productRepository) FindOne(id string) (*entity.Product, error) {
 
 	return &product, nil
 }
+
+func (p *productRepository) FindStockLog(orderId string) (*entity.StockDecreaseLog, error) {
+	var log entity.StockDecreaseLog
+
+	result := p.DB.Model(&log).Where("order_id = ?", orderId).First(&log)
+	if result.Error == nil {
+		return nil, result.Error
+	}
+
+	return &log, nil
+}
+
+func (p *productRepository) SaveProduct(product *entity.Product) error {
+	res := p.DB.Model(&product).Save(&product)
+	if res.Error != nil {
+		return res.Error
+	}
+
+	return nil
+}
+
+func (p *productRepository) CreateStockLog(log *entity.StockDecreaseLog) error {
+	err := p.DB.Model(&log).Create(&log).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

@@ -23,7 +23,7 @@ func (rpc *GrpcServer) Provide() gRPCProvider {
 	client := client.NewProductServerClient()
 
 	orderRepo := repository.NewOrderRepository(db)
-	orderService := service.NewOrderService(orderRepo, client)
+	orderService := service.NewOrderService(orderRepo)
 	provider.handlers.order = *handler.NewOrderHandler(orderService, client)
 
 	return provider

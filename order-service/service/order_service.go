@@ -1,20 +1,17 @@
 package service
 
 import (
-	"github.com/saufiroja/order-service/app/client"
 	"github.com/saufiroja/order-service/entity"
 	"github.com/saufiroja/order-service/interfaces"
 )
 
 type OrderService struct {
 	OrderRepository interfaces.OrderRepository
-	ProductService  client.ProductServerClient
 }
 
-func NewOrderService(orderRepository interfaces.OrderRepository, productService client.ProductServerClient) interfaces.OrderService {
+func NewOrderService(orderRepository interfaces.OrderRepository) interfaces.OrderService {
 	return &OrderService{
 		OrderRepository: orderRepository,
-		ProductService:  productService,
 	}
 }
 

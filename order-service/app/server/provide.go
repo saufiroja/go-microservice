@@ -20,11 +20,11 @@ func (rpc *GrpcServer) Provide() gRPCProvider {
 
 	conf := config.NewAppConfig()
 	db := postgres.NewPostgres(conf)
-	client := client.ProductServerClient{}
+	client := client.NewProductServerClient()
 
 	orderRepo := repository.NewOrderRepository(db)
 	orderService := service.NewOrderService(orderRepo, client)
-	provider.handlers.order = *handler.NewOrderHandler(orderService)
+	provider.handlers.order = *handler.NewOrderHandler(orderService, client)
 
 	return provider
 }

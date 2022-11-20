@@ -41,3 +41,13 @@ func (h *UserHandler) Login(ctx context.Context, req *user.LoginRequest) (*user.
 		AccessToken: token,
 	}, nil
 }
+
+func (h *UserHandler) ValidateToken(ctx context.Context, req *user.ValidateRequest) (*user.ValidateResponse, error) {
+	err := h.UserService.ValidateToken(req.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+	return &user.ValidateResponse{
+		Status: fiber.StatusOK,
+	}, nil
+}

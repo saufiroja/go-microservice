@@ -31,3 +31,21 @@ func (s *UserService) Login(email, password string) (string, error) {
 
 	return accessToken, nil
 }
+
+func (s *UserService) ValidateToken(token string) error {
+	claims, err := utils.ValidateAccessToken(token)
+	if err != nil {
+		return err
+	}
+
+	user, err := s.UserRepository.ValidateToken(claims["email"].(string))
+	if err != nil {
+		return err
+	}
+
+	if user.ID != claims["id"] {
+		return err
+	}
+
+	return nil
+}

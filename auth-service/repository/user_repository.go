@@ -32,3 +32,13 @@ func (r *userRepository) Login(email string) (entity.User, error) {
 
 	return user, nil
 }
+
+func (r *userRepository) ValidateToken(email string) (entity.User, error) {
+	user := entity.User{}
+	res := r.DB.Model(&user).Where("email = ?", email).First(&user)
+	if res.Error != nil {
+		return user, res.Error
+	}
+
+	return user, nil
+}

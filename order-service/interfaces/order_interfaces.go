@@ -9,4 +9,5 @@ type OrderRepository interface {
 
 type OrderService interface {
 	CreateOrder(order *entity.Order) error
+	DeleteOrder(id string) error
 }
